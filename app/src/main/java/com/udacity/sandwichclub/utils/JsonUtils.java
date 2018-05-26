@@ -1,5 +1,7 @@
 package com.udacity.sandwichclub.utils;
 
+import android.util.Log;
+
 import com.udacity.sandwichclub.model.Sandwich;
 
 import org.json.JSONArray;
@@ -19,21 +21,21 @@ public class JsonUtils {
             List<String> ingredients = new ArrayList<>();
             List<String> alias = new ArrayList<>();
             JSONArray ings = object.getJSONArray("ingredients");
-            JSONArray als = object.getJSONArray("alsoKnownAs");
+            JSONArray als = nameJson.getJSONArray("alsoKnownAs");
             for(int i =0; i < ings.length(); i++) {
                 ingredients.add(ings.get(i).toString());
             }
             for(int i =0; i < als.length(); i++) {
                 alias.add(als.get(i).toString());
             }
-            sandwich.setMainName(object.getString("mainName"));
+            sandwich.setMainName(nameJson.getString("mainName"));
             sandwich.setDescription(object.getString("description"));
             sandwich.setPlaceOfOrigin(object.getString("placeOfOrigin"));
             sandwich.setImage(object.getString("image"));
             sandwich.setIngredients(ingredients);
             sandwich.setAlsoKnownAs(alias);
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.e("JsonUtils",e.getMessage());
         }
 
         return sandwich;
